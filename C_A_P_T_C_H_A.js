@@ -12,14 +12,12 @@ const config = {
 
 var captcha = "";
 
-
 module.exports = {
   'Captcha solver': function (browser) {
     browser
       .url('http://challenge01.root-me.org/programmation/ch8/')
       .waitForElementVisible('body')
       .source(function (result) {
-        // Source will be stored in result.value
         console.log(result.value);
         var html = result.value
         var data = "";
@@ -54,7 +52,6 @@ module.exports = {
 
             sharp(inputFile).resize({ height: 300 }).toFile(outputFile)
               .then(function (newFileInfo) {
-                // newFileInfo holds the output file properties
                 console.log("Success")
               })
               .catch(function (err) {
@@ -72,13 +69,11 @@ module.exports = {
           })
         })
       })
-      //  .assert.titleContains('Ecosia')
       .assert.visible('input[type=text]')
       .pause(10000)
       .assert.visible('input[type=submit]')
       .click('input[type=submit]')
       .pause(10000)
-      // .assert.containsText('.mainline-results', 'Nightwatch.js')
       .end();
   }
 };
