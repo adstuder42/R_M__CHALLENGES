@@ -55,7 +55,7 @@ def morse_code(code):
     elif code == "--..":
         return 'z'
 
-def morse(encoded):
+def morse_decode(encoded):
     # encoded = "---/.--./../---/.--./..../.-/--./-.--"
     decoded = ""
     characters = encoded.split('/')
@@ -64,52 +64,36 @@ def morse(encoded):
     print(decoded)
     return decoded
 
-def base85(encoded):
+def base85_decode(encoded):
     # encoded = "Wo~q3a&K*AXJKr4"
 
     decoded = base64.b85decode(encoded.encode("UTF-8"))
     plaintext = decoded.decode("UTF-8")
     print(plaintext)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+def base64_decode(encoded):
+    # encoded = "cGxhbmV0YXJpdW0="
+   
+    decoded = base64.b64decode(encoded.encode("UTF-8"))
+    plaintext = decoded.decode("UTF-8")
+    print(plaintext)
 
 
 def client_program():
-    base85("")
+    base64_decode("")
     exit()
     host = 'challenge01.root-me.org'
     port = 52017  # socket server port number
     data = ""
+   
+   
     client_socket = socket.socket()  # instantiate
     client_socket.connect((host, port))  # connect to the server
     data = client_socket.recv(1024).decode()  # receive response
     data = data.split('\'')
     print(data[len(data) - 2])
 
-    # data = data[data.find(": '") + 3]
-    # x = data.split('\'')
-    # print(data)
     
-        # message = "2\n";  # take
     rep = str(data) + '\n'
     client_socket.send(rep.encode())  # send message 
     data = client_socket.recv(1024).decode()  # receive response
