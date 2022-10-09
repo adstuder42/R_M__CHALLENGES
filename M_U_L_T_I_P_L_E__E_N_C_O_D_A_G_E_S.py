@@ -1,59 +1,9 @@
 import socket
 import base64
 
-def morse_code(code):
-    if code == ".-":
-        return 'a'
-    elif code == "-...":
-        return 'b'
-    elif code == "-.-.":
-        return 'c'
-    elif code == "-..":
-        return 'd'
-    elif code == ".":
-        return 'e'
-    elif code == "..-.":
-        return 'f'
-    elif code == "--.":
-        return 'g'
-    elif code == "....":
-        return 'h'
-    elif code == "..":
-        return 'i'
-    elif code == ".---":
-        return 'j'
-    elif code == "-.-":
-        return 'k'
-    elif code == ".-..":
-        return 'l'
-    elif code == "--":
-        return 'm'
-    elif code == "-.":
-        return 'n'
-    elif code == "---":
-        return 'o'
-    elif code == ".--.":
-        return 'p'
-    elif code == "--.-":
-        return 'q'
-    elif code == ".-.":
-        return 'r'
-    elif code == "...":
-        return 's'
-    elif code == "-":
-        return 't'
-    elif code == "..-":
-        return 'u'
-    elif code == "...-":
-        return 'v'
-    elif code == ".--":
-        return 'w'
-    elif code == "-..-":
-        return 'x'
-    elif code == "-.--":
-        return 'y'
-    elif code == "--..":
-        return 'z'
+morse_code = {".-":'a', "-...":'b', "-.-.":'c',  "-..":'d',  ".":'e', "..-.":'f', "--.":'g', "....":'h',
+ "..":'i', ".---":'j', "-.-":'k', ".-..":'l', "--":'m', "-.":'n', "---":'o', ".--.":'p', "--.-":'q',
+ ".-.":'r', "...":'s', "-":'t',"..-":'u', "...-":'v', ".--":'w', "-..-":'x', "-.--":'y', "--..":'z'}
 
 def morse_decode(encoded):
     # encoded = "---/.--./../---/.--./..../.-/--./-.--"
@@ -61,7 +11,7 @@ def morse_decode(encoded):
     print("morse")
     characters = encoded.split('/')
     for char in characters:
-        decoded += morse_code(char)
+        decoded += morse_code[char]
     return (decoded)
 
 def base85_decode(encoded):
@@ -73,12 +23,12 @@ def base85_decode(encoded):
 
 def base64_decode(encoded):
     # encoded = "bm9uc2FsZQ=="
-    print("b64")
     try:
         decoded = base64.b64decode(encoded.encode("UTF-8"))
         plaintext = decoded.decode("UTF-8")
     except:
         return base85_decode(encoded)
+    print("b64")
     return (plaintext)
 
 def base32_decode(encoded):
@@ -95,7 +45,7 @@ def hex_decode(encoded):
     return (decoded)
 
 def client_program():
-    host = 'xxxxxxxxxxxx'
+    host = 'challenge01.xxxxxx.org'
     port = 52017
     client_socket = socket.socket()
     client_socket.connect((host, port))
