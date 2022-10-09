@@ -45,14 +45,14 @@ def hex_decode(encoded):
     return (decoded)
 
 def client_program():
-    host = 'challenge01.xxxxxx.org'
+    host = 'challenge01.root-me.org'
     port = 52017
-    client_socket = socket.socket()
-    client_socket.connect((host, port))
-    i = 0
     last = 0
 
-    while (i < 10):
+    client_socket = socket.socket()
+    client_socket.connect((host, port))
+
+    while (1):
         
         ishex = 1
         ismorse = 1
