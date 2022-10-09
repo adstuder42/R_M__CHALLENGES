@@ -45,7 +45,7 @@ def hex_decode(encoded):
     return (decoded)
 
 def client_program():
-    host = 'challenge01.root-me.org'
+    host = 'challenge01.XXXXXXXXX.org'
     port = 52017
     last = 0
 
