@@ -1,5 +1,5 @@
 import socket
-import base64
+import math
 
 def atoi(str):
     num = ""
@@ -9,7 +9,8 @@ def atoi(str):
         elif char.isnumeric() == True:
             num = num + char
         else:
-            return (int(num))
+            return (float(num))
+    return (float(num))
 
 
 def client_program():
@@ -22,25 +23,43 @@ def client_program():
     while (i < 10):
         data = ""
         data = client_socket.recv(1024).decode()
+        print(data)
+        # break ;
         data = data[data.find("please:") + 8:]
         print(data)
         data = data.split(' ')
-        for i in data:
-            print(i)
-        val1 = atoi(data[0])
-        val2 = atoi(data[2])
-        val3 = atoi(data[4])
-        val4 = atoi(data[6])
+        # for i in data:
+            # print(i)
+        a = atoi(data[0])
+        b = atoi(data[2])
+        c = atoi(data[4])
+        d = atoi(data[6])
         op1 = data[1]
         op1 = data[3]
 
-        if val4 > 0:
-            val3 -= val4
+        if d > 0:
+            c -= d
         else:
-            val3 += val4
+            c += d
 
-        delta = (val2 * val2) + 4 * val1 * val3
-        if
+        delta = (b * b) - 4 * a * c
+        if delta > 0:
+            x1 = (-b - math.sqrt(delta)) / (2 * a)
+            x2 = (-b + math.sqrt(delta)) / (2 * a)
+            x1 = float(format(x1, '.4f'))
+            # print(x1)
+            x1 = round(x1, 3)
+            x1 = format(x1, '.3f')
+            print(x1)
+            x2 = float(format(x2, '.4f'))
+            # print(x1)
+            x2 = round(x2, 3)
+            x2 = format(x2, '.3f')
+            print(x2)
+        elif delta == 0:
+            x = - (b / (2 * a))
+        # elif delta < 0:
+
         # val1 = atoi(data)
         # while data[i] == "+" or data[i]
         # val2
