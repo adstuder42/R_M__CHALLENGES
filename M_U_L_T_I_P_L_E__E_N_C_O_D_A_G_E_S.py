@@ -41,7 +41,7 @@ def base32_decode(encoded):
 def hex_decode(encoded):
     # encoded = "707465726f636c69646165"
     print("hex")
-    decoded = bytes.fromhex(encoded).decode('utf-8')
+    decoded = bytes.fromhex(encoded).decode('UTF-8')
     return (decoded)
 
 def client_program():
