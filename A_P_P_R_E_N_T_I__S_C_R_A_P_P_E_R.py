@@ -17,6 +17,7 @@ def get_question():
     print('Recu :', datas)
     datastr = datas.decode('UTF-8')
 
+# url
     i = 9
     url = ""
     while (datastr[i] != "\""):
@@ -27,24 +28,60 @@ def get_question():
             url = url + datastr[i]
             i += 1
 
+# cookie
+    cookie = ""
     i = datastr.find("random")
     i += 10
-    cookie = ""
     while (datastr[i] != "\""):
         cookie += datastr[i]
         i += 1
 
+# identifier
+    identifier = ""
     i = datastr.find("with")
-    element = ""
     if i != -1:
         i += 5
         while (datastr[i] != "\""):
-            element += datastr[i]
+            identifier += datastr[i]
             i += 1
+
+# child
+    child = ""
+    i = datastr.find("child")
+    if i != -1:
+        if datastr.find("first") != -1:
+            child = "first"
+        elif datastr.find("last") != -1:
+            child = "last"
+# parent
+    if child == "":
+        parent = "parent"
+# location
+    location = ""
+    if child == "":
+        i = datastr.find("s the")
+        if i != -1:
+            i += 6
+            while (datastr[i] != ' '):
+                location += datastr[i]
+                i += 1
+            
+# target_type
+    target_type = ""
+    if child == "child":
+        i = datastr.find("child")
+        i += 8
+
+
+
+
 
     print("url = " + url)
     print("cookie == " + cookie)
-    print("element == " + element)
+    print("child == " + child)
+    print("parent == " + parent)
+    print("location == " + location)
+    print("identifier == " + identifier)
 
     client.close()
 
