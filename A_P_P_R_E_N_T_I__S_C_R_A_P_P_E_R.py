@@ -1,45 +1,63 @@
 import socket
 import requests
-import urllib.request
-import urllib3
+# import urllib.request
+# import urllib3
 
 
-HOST = 'ctf06.root-me.org'
-PORT = 4444
+def get_question():
+    HOST = 'ctf06.root-me.org'
+    PORT = 4444
+    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client.connect((HOST, PORT))
+    print('Connexion to ' + HOST + ':' + str(PORT) + ' successful.')
+    datas = client.recv(4096)
+    datas = client.recv(4096)
+    # print('no question :', datas)
+    datas = client.recv(4096)
+    print('Recu :', datas)
+    datastr = datas.decode('UTF-8')
 
-client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect((HOST, PORT))
-print('Connexion vers ' + HOST + ':' + str(PORT) + ' reussie.')
+    i = 9
+    url = ""
+    while (datastr[i] != "\""):
+        if datastr[i] == 'X':
+            url = url + "06"
+            i += 2
+        else:
+            url = url + datastr[i]
+            i += 1
 
-donnees = client.recv(4096)
-donnees = client.recv(4096)
-donnees = client.recv(4096)
-print('Recu :', donnees)
+    i = datastr.find("random")
+    i += 10
+    cookie = ""
+    while (datastr[i] != "\""):
+        cookie += datastr[i]
+        i += 1
 
+    i = datastr.find("with")
+    element = ""
+    if i != -1:
+        i += 5
+        while (datastr[i] != "\""):
+            element += datastr[i]
+            i += 1
 
+    print("url = " + url)
+    print("cookie == " + cookie)
+    print("element == " + element)
 
-
-url = 'http://ctf06.root-me.org:8000/partenaires'
-cookies = dict(random='931307')
-r = requests.get(url, cookies=cookies)
-print(r.text)
-
-
-# webpage = requests.get('http://ctf06.root-me.org:8000/partenaires', cookies={'random': 731309}).text
-# webpage = requests.get('http://ctf06.root-me.org:8000/partenaires', cookies={'required_cookie': 731309}, headers={'User-Agent': 'Mozilla/5.0'}).text
-
-# cookies = {'required_cookie': 731309}
-# headers = {'User-Agent': 'Mozilla/5.0'}
-# response = requests.get('http://ctf06.root-me.org:8000/partenaires', cookies=cookies, headers=headers)
-
-# webpage = response.text
-
-# print(webpage)
-
-
-# with urllib.request.urlopen('http://ctf06.root-me.org:8000/partenaires') as f:
-#     print(f.read())
-# print('Deconnexion.')
+    client.close()
 
 
-client.close()
+# url = 'http://ctf06.root-me.org:8000/partenaires'
+# cookies = dict(random='931307')
+# r = requests.get(url, cookies=cookies)
+# print(r.text)
+
+
+def main():
+    get_question()
+
+
+if __name__ == "__main__":
+    main()
